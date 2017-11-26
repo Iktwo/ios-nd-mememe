@@ -31,6 +31,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    var meme: Meme?
 
     @IBAction func pickImageFromCamera(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
@@ -47,10 +49,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func save(_ sender: Any) {
-        let activityItems = [generateMemedImage()]
+        meme = Meme(topText: topTextField.text ?? "", bottomText: bottomTextField.text ?? "", originalImage: imageView.image!, modifiedImage: generateMemedImage())
+
+        let activityItems = [meme?.modifiedImage]
         let avc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
 
         self.present(avc, animated: true, completion: nil)
+    }
+
+    @IBAction func cancel(_ sender: Any) {
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
+        imageView.image = nil
+        cancelButton.isEnabled = false
     }
 
     func generateMemedImage() -> UIImage {
@@ -77,27 +88,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        cancelButton.isEnabled = false
+
         let memeTextAttributes: [String: Any] = [
             NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+            NSAttributedStringKey.backgroundColor.rawValue: UIColor.white,
+            /// TODO: verify why this seems to be completely ignored
             NSAttributedStringKey.foregroundColor.rawValue: UIColor.red,
             NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSAttributedStringKey.strokeWidth.rawValue: 2.0]
+            NSAttributedStringKey.strokeWidth.rawValue: 8.0]
 
         topTextField.text = "TOP"
         topTextField.delegate = textFieldDelegate
         topTextField.defaultTextAttributes = memeTextAttributes
         topTextField.autocapitalizationType = .allCharacters
         topTextField.textAlignment = .center
+
         /// TODO: check why this makes the font transparent
-        //        topTextField.backgroundColor = UIColor.clear
+        topTextField.borderStyle = .none
 
         bottomTextField.text = "BOTTOM"
         bottomTextField.delegate = textFieldDelegate
         bottomTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.autocapitalizationType = .allCharacters
         bottomTextField.textAlignment = .center
+
         /// TODO: check why this makes the font transparent
-        //        bottomTextField.borderStyle = .none
+        bottomTextField.borderStyle = .none
 
         saveButton.isEnabled = false
     }
@@ -109,6 +126,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         subscribeToKeyboardNotifications()
     }
 
+    // Keep track of the current active text field
     func updateActiveTextField(textField: UITextField?) {
         activeTextField = textField
     }
@@ -126,6 +144,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             topTextField.isHidden = true
             bottomTextField.isHidden = true
 
+            // When transition is done reposition the text fields
             coordinator.animate(alongsideTransition: nil, completion: {
                 _ in
 
@@ -146,6 +165,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            cancelButton.isEnabled = true
+
             imageView.contentMode = .scaleAspectFit
             imageView.image = pickedImage
 
@@ -172,20 +193,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
 
     func getKeyboardStartPosition(_ notification: Notification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.origin.y
     }
 
     @objc func keyboardWillShow(_ notification: Notification) {
         let keyboardHeight = getKeyboardHeight(notification)
+        let activeTextFieldFrame = (getActiveTextField()?.frame)!
 
-        if ((getActiveTextField()?.frame.origin.y)! + (getActiveTextField()?.frame.height)! > getKeyboardStartPosition(notification)) {
+        if (activeTextFieldFrame.origin.y + activeTextFieldFrame.height > getKeyboardStartPosition(notification)) {
             view.frame.origin.y = 0 - keyboardHeight
         }
     }

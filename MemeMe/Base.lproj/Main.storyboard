@@ -71,10 +71,16 @@
                                 <action selector="save:" destination="BYZ-38-t0r" id="Fa9-Aw-FRS"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="4ym-PR-4YT">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="YwH-C2-cDA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="bottomTextField" destination="zYr-tk-sdF" id="PA0-45-mFc"/>
                         <outlet property="cameraButton" destination="eZX-dZ-y9x" id="1oz-cC-OR9"/>
+                        <outlet property="cancelButton" destination="4ym-PR-4YT" id="fSN-nD-2wd"/>
                         <outlet property="imageView" destination="fsO-Bi-HIs" id="jpN-YE-KZY"/>
                         <outlet property="navigationItem" destination="lNY-st-9Xl" id="iqf-wO-K7T"/>
                         <outlet property="saveButton" destination="RSp-Uy-yHU" id="eNO-o4-Bp2"/>
