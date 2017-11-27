@@ -12,10 +12,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Generator View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GeneratorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -31,7 +31,7 @@
                                             <action selector="handleClick:" destination="BYZ-38-t0r" id="t48-Qu-tvN"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Camera" id="eZX-dZ-y9x">
+                                    <barButtonItem systemItem="camera" id="eZX-dZ-y9x">
                                         <connections>
                                             <action selector="pickImageFromCamera:" destination="BYZ-38-t0r" id="74K-e4-hei"/>
                                         </connections>
@@ -39,14 +39,14 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="spH-pH-279">
-                                <rect key="frame" x="8" y="73" width="359" height="52"/>
+                                <rect key="frame" x="10" y="74" width="355" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zYr-tk-sdF">
-                                <rect key="frame" x="8" y="130" width="359" height="52"/>
+                                <rect key="frame" x="10" y="146" width="355" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -66,12 +66,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="lNY-st-9Xl">
-                        <barButtonItem key="leftBarButtonItem" title="Save" id="RSp-Uy-yHU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="RSp-Uy-yHU">
                             <connections>
-                                <action selector="save:" destination="BYZ-38-t0r" id="Fa9-Aw-FRS"/>
+                                <action selector="didPressShare:" destination="BYZ-38-t0r" id="Fa9-Aw-FRS"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="4ym-PR-4YT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="4ym-PR-4YT">
                             <connections>
                                 <action selector="cancel:" destination="BYZ-38-t0r" id="YwH-C2-cDA"/>
                             </connections>
@@ -83,7 +83,7 @@
                         <outlet property="cancelButton" destination="4ym-PR-4YT" id="fSN-nD-2wd"/>
                         <outlet property="imageView" destination="fsO-Bi-HIs" id="jpN-YE-KZY"/>
                         <outlet property="navigationItem" destination="lNY-st-9Xl" id="iqf-wO-K7T"/>
-                        <outlet property="saveButton" destination="RSp-Uy-yHU" id="eNO-o4-Bp2"/>
+                        <outlet property="shareButton" destination="RSp-Uy-yHU" id="eNO-o4-Bp2"/>
                         <outlet property="topTextField" destination="spH-pH-279" id="3vz-zJ-hQ1"/>
                     </connections>
                 </viewController>
