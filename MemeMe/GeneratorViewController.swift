@@ -96,6 +96,9 @@ class GeneratorViewController: UIViewController, UIImagePickerControllerDelegate
     }
 
     func save(meme: Meme) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
+        
         UIImageWriteToSavedPhotosAlbum(meme.modifiedImage, nil, nil, nil)
     }
 
