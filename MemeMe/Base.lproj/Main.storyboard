@@ -206,7 +206,7 @@
         <!--Meme Details View Controller-->
         <scene sceneID="K1g-bv-x2O">
             <objects>
-                <viewController storyboardIdentifier="MemeDetailsViewController" id="5Bq-mk-IfQ" customClass="MemeDetailsViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeDetailsViewController" hidesBottomBarWhenPushed="YES" id="5Bq-mk-IfQ" customClass="MemeDetailsViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VpO-sm-y4m">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -306,6 +306,7 @@
                         <outlet property="imageView" destination="u3x-J6-O07" id="IOs-ss-nlX"/>
                         <outlet property="navigationItem" destination="Sy1-so-Iy8" id="sdn-Yh-d6s"/>
                         <outlet property="shareButton" destination="ngn-DS-Ma9" id="kPj-x7-Rj1"/>
+                        <outlet property="toolBar" destination="GIL-Ve-vi4" id="6K0-66-wmd"/>
                         <outlet property="topTextField" destination="ZPW-oe-2uJ" id="GgD-Rf-qPE"/>
                     </connections>
                 </viewController>
@@ -319,6 +320,6 @@
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="E8b-DV-boI"/>
+        <segue reference="mzG-Kw-NHA"/>
     </inferredMetricsTieBreakers>
 </document>

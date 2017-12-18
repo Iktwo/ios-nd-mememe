@@ -12,6 +12,7 @@ class GeneratorViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var toolBar: UIToolbar!
 
     var meme: Meme?
     var textFieldDelegate: TextFieldDelegate?
@@ -90,7 +91,6 @@ class GeneratorViewController: UIViewController, UIImagePickerControllerDelegate
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
@@ -98,20 +98,20 @@ class GeneratorViewController: UIViewController, UIImagePickerControllerDelegate
     func save(meme: Meme) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.memes.append(meme)
-        
-        UIImageWriteToSavedPhotosAlbum(meme.modifiedImage, nil, nil, nil)
     }
 
 
     func generateMemedImage() -> UIImage {
-        // TODO: Hide toolbar and navbar
+        self.navigationController?.isNavigationBarHidden = true
+        toolBar.isHidden = true
 
         UIGraphicsBeginImageContext(view.frame.size)
         view.drawHierarchy(in: view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
-        // TODO: Show toolbar and navbar
+        self.navigationController?.isNavigationBarHidden = false
+        toolBar.isHidden = false
 
         return memedImage
     }
